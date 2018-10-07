@@ -432,7 +432,7 @@ int startup(u_short *port)
   error_die("bind");
  if (*port == 0)  /* if dynamically allocating a port */
  {
-  int namelen = sizeof(name);
+  socklen_t namelen = sizeof(name);
   if (getsockname(httpd, (struct sockaddr *)&name, &namelen) == -1)
    error_die("getsockname");
   *port = ntohs(name.sin_port);
@@ -477,7 +477,7 @@ int main(void)
  u_short port = 0;
  int client_sock = -1;
  struct sockaddr_in client_name;
- int client_name_len = sizeof(client_name);
+ socklen_t client_name_len = sizeof(client_name);
 
  server_sock = startup(&port);
  printf("httpd running on port %d\n", port);
